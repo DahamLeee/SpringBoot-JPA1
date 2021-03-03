@@ -37,7 +37,7 @@ class OrderServiceTest {
         // given (이런게 주어졌을 때)
         Member member = getMember();
 
-        Book book = getBook("시골 JPA", 10000, 10, "시골 JPA");
+        Book book = getBook("시골 JPA", 10000, 10);
 
         int orderCount = 2;
 
@@ -57,7 +57,7 @@ class OrderServiceTest {
     public void 상품주문_재고수량초과() throws Exception {
         // given (이런게 주어졌을 때)
         Member member = getMember();
-        Item item = getBook("시골 JPA", 10000, 10, "시골 JPA");
+        Item item = getBook("시골 JPA", 10000, 10);
 
         int orderCount = 11;
 
@@ -75,7 +75,7 @@ class OrderServiceTest {
     public void 주문취소() throws Exception {
         // given (이런게 주어졌을 때)
         Member member = getMember();
-        Book book = getBook("시골 JPA", 10000, 10, "시골 JPA");
+        Book book = getBook("시골 JPA", 10000, 10);
 
         int orderCount = 2;
 
@@ -89,7 +89,6 @@ class OrderServiceTest {
 
         assertEquals(OrderStatus.CANCEL, getOrder.getStatus(), "주문 취소시 상태는 CANCEL 이다");
         assertEquals(10, book.getStockQuantity(), "주문이 취소된 상품은 그만큼 재고가 증가해야 한다.");
-
     }
 
     private Book getBook(String name, int price, int stockQuantity) {
