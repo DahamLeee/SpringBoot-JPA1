@@ -49,4 +49,17 @@ public abstract class Item {
         this.stockQuantity = restStock;
     }
 
+
+    /**
+     * Item update
+     */
+    public void change(String name, int price, int stockQuantity) {
+        // nd
+        this.name = name;
+        this.price = price;
+        if (stockQuantity < 0) {
+            throw new NotEnoughStockException("There must be at least one stock");
+        }
+        this.stockQuantity = stockQuantity;
+    }
 }

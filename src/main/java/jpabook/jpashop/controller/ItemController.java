@@ -63,16 +63,20 @@ public class ItemController {
     }
 
     @PostMapping("items/{itemId}/edit")
-    public String updateItem(@ModelAttribute("form") BookForm form, @PathVariable("itemId") String itemId) {
+    public String updateItem(@ModelAttribute("form") BookForm form, @PathVariable("itemId") Long itemId) {
 
         // update 를 할 때 공격자가 id 값을 변경해서 악의적인 공격을 할 수 있다.
         // 이 유저가 이 ITEM(변경하려는 것)에 대한 권한이 있는지 체크를 해줘야 한다.
+        // 이것도 그렇게 좋은 방식이 아니다 그럼 어떻게 하는 것이 제일 좋으냐?
+//        ModelMapper modelMapper = new ModelMapper();
+//
+//        Book book = modelMapper.map(form, Book.class); // 준영속상태
+//        itemService.saveItem(book);
 
-        ModelMapper modelMapper = new ModelMapper();
+        // 만약 수정을 해야 되는 어트리뷰트가 많다면 그냥 Dto 객체 하나 만들어서
+        // 그거를 사용해서 하는 것이 제일 좋은 설계다
+        itemService.updateItem(itemId, form.getName(), form.getPrice(), form.getStockQuantity());
 
-        Book book = modelMapper.map(form, Book.class);
-
-        itemService.saveItem(book);
         return "redirect:/items";
     }
 }
